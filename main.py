@@ -86,3 +86,7 @@ class TrafficSignCNN(nn.Module):
 # Initialize model
 model = TrafficSignCNN(num_classes=len(dataset.classes)).to(DEVICE)
 
+import torch.optim as optim
+
+
+
