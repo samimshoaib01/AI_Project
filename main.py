@@ -124,5 +124,35 @@ def train_model(model, train_loader, valid_loader, epochs):
 # Train the model
 train_losses, valid_losses = train_model(model, train_loader, valid_loader, EPOCHS)
 
+import matplotlib.pyplot as plt
 
+def evaluate(model, test_loader):
+    model.eval()
+    correct = 0
+    total = 0
 
+    with torch.no_grad():
+        for images, labels in test_loader:
+            images, labels = images.to(DEVICE), labels.to(DEVICE)
+            outputs = model(images)
+            _, predicted = torch.max(outputs, 1)
+            correct += (predicted == labels).sum().item()
+            total += labels.size(0)
+
+    accuracy = correct / total
+    print(f"Test Accuracy: {accuracy:.4f}")
+
+evaluate(model, test_loader)
+
+# Plot Training Results
+plt.figure(figsize=(10, 5))
+plt.plot(train_losses, label="Train Loss")
+plt.plot(valid_losses, label="Validation Loss")
+plt.legend()
+plt.title("Loss Over Epochs")
+plt.xlabel("Epochs")
+plt.ylabel("Loss")
+plt.show()
+
+torch.save(model.state_dict(), "traffic_sign_cnn.pth")
+print("Model saved as traffic_sign_cnn.pth")
