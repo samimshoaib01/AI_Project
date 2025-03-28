@@ -83,4 +83,6 @@ class TrafficSignCNN(nn.Module):
         x = self.fc2(x)
         return x
 
+# Initialize model
+model = TrafficSignCNN(num_classes=len(dataset.classes)).to(DEVICE)
 
