@@ -153,3 +153,6 @@ plt.title("Loss Over Epochs")
 plt.xlabel("Epochs")
 plt.ylabel("Loss")
 plt.show()
+
+torch.save(model.state_dict(), "traffic_sign_cnn.pth")
+print("Model saved as traffic_sign_cnn.pth")
