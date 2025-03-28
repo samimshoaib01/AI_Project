@@ -88,5 +88,22 @@ model = TrafficSignCNN(num_classes=len(dataset.classes)).to(DEVICE)
 
 import torch.optim as optim
 
+def train_model(model, train_loader, valid_loader, epochs):
+    train_losses, valid_losses = [], []
+    for epoch in range(epochs):
+        model.train()
+        running_loss = 0.0
+
+        for images, labels in train_loader:
+            images, labels = images.to(DEVICE), labels.to(DEVICE)
+            optimizer.zero_grad()
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+            running_loss += loss.item()
+
+        train_losses.append(running_loss / len(train_loader))
+
 
 
