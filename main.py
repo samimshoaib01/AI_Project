@@ -39,3 +39,11 @@ class TrafficSignDataset(Dataset):
             img = self.transform(img)
 
         return img, label
+    
+# Data Transformations
+transform = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.5,), (0.5,))
+])
+
+
