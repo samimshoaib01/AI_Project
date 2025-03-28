@@ -121,5 +121,8 @@ def train_model(model, train_loader, valid_loader, epochs):
 
     return train_losses, valid_losses
 
+# Train the model
+train_losses, valid_losses = train_model(model, train_loader, valid_loader, EPOCHS)
+
 
 
