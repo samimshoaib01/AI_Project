@@ -124,5 +124,6 @@ def train_model(model, train_loader, valid_loader, epochs):
 # Train the model
 train_losses, valid_losses = train_model(model, train_loader, valid_loader, EPOCHS)
 
+import matplotlib.pyplot as plt
 
 
