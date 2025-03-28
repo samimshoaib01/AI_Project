@@ -105,5 +105,21 @@ def train_model(model, train_loader, valid_loader, epochs):
 
         train_losses.append(running_loss / len(train_loader))
 
+        # Validation
+        model.eval()
+        valid_loss = 0.0
+        with torch.no_grad():
+            for images, labels in valid_loader:
+                images, labels = images.to(DEVICE), labels.to(DEVICE)
+                outputs = model(images)
+                loss = criterion(outputs, labels)
+                valid_loss += loss.item()
+
+        valid_losses.append(valid_loss / len(valid_loader))
+
+        print(f"Epoch {epoch+1}/{epochs}, Train Loss: {train_losses[-1]:.4f}, Valid Loss: {valid_losses[-1]:.4f}")
+
+    return train_losses, valid_losses
+
 
 
