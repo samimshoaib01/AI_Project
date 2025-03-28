@@ -60,4 +60,4 @@ test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=False)
 
 print(f"Train: {len(train_set)}, Validation: {len(valid_set)}, Test: {len(test_set)}")
 
-
+import torch.nn as nn
