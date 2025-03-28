@@ -46,4 +46,18 @@ transform = transforms.Compose([
     transforms.Normalize((0.5,), (0.5,))
 ])
 
+# Load datasets
+dataset = TrafficSignDataset(DATASET_PATH, transform=transform)
+train_size = int(0.6 * len(dataset))
+valid_size = int(0.2 * len(dataset))
+test_size = len(dataset) - train_size - valid_size
+
+train_set, valid_set, test_set = torch.utils.data.random_split(dataset, [train_size, valid_size, test_size])
+
+train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
+valid_loader = DataLoader(valid_set, batch_size=BATCH_SIZE, shuffle=False)
+test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=False)
+
+print(f"Train: {len(train_set)}, Validation: {len(valid_set)}, Test: {len(test_set)}")
+
 
