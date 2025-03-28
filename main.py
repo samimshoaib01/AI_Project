@@ -144,3 +144,12 @@ def evaluate(model, test_loader):
 
 evaluate(model, test_loader)
 
+# Plot Training Results
+plt.figure(figsize=(10, 5))
+plt.plot(train_losses, label="Train Loss")
+plt.plot(valid_losses, label="Validation Loss")
+plt.legend()
+plt.title("Loss Over Epochs")
+plt.xlabel("Epochs")
+plt.ylabel("Loss")
+plt.show()
