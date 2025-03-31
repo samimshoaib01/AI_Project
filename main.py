@@ -62,6 +62,7 @@ print(f"Train: {len(train_set)}, Validation: {len(valid_set)}, Test: {len(test_s
 
 import torch.nn as nn
 
+
 class TrafficSignCNN(nn.Module):
     def __init__(self, num_classes):
         super(TrafficSignCNN, self).__init__()
