@@ -40,3 +40,31 @@ model = TrafficSignCNN().to(DEVICE)
 model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
 model.eval()
 
+//sumits part 
+
+
+while True:
+    success, imgOriginal = cap.read()
+    if not success:
+        break
+    
+    img_gray = cv2.cvtColor(imgOriginal, cv2.COLOR_BGR2GRAY)
+    img_resized = cv2.resize(img_gray, (32, 32))
+    img_eq = cv2.equalizeHist(img_resized)
+    img = preprocess_image(img_eq)
+    
+    with torch.no_grad():
+        outputs = model(img)
+        probabilities = torch.softmax(outputs, 1)
+        class_idx = torch.argmax(probabilities).item()
+        confidence = probabilities[0][class_idx].item()
+    
+    cv2.putText(imgOriginal, f"CLASS: {class_names[class_idx]}", (20, 35), font, 0.75, (0, 0, 255), 2)
+    cv2.putText(imgOriginal, f"CONFIDENCE: {confidence*100:.2f}%", (20, 75), font, 0.75, (0, 0, 255), 2)
+    cv2.imshow("Traffic Sign Recognition", imgOriginal)
+    
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
