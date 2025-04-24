@@ -40,7 +40,19 @@ model = TrafficSignCNN().to(DEVICE)
 model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
 model.eval()
 
-//sumits part 
+# Webcam setup
+cap = cv2.VideoCapture(0)
+cap.set(3, 640)
+cap.set(4, 480)
+font = cv2.FONT_HERSHEY_SIMPLEX
+
+def preprocess_image(img):
+    img = img.astype(np.float32) / 255.0
+    transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.5,), (0.5,))
+    ])
+    return transform(img).unsqueeze(0).to(DEVICE)
 
 
 while True:
